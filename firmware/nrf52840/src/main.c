@@ -11,12 +11,9 @@
 #define COMPANY_ID_LOW  0xFF
 #define COMPANY_ID_HIGH 0xFF
 
-/* Buffer za manufacturer specific data:
- * [company_id 2B][temp_int 2B][temp_dec 2B][press_int 2B]
- */
 static uint8_t manuf_data[4] = {
     COMPANY_ID_LOW, COMPANY_ID_HIGH,
-    0, 0,  /* temp u 0.01°C, int16 */
+    0, 0,  /* 0.01°C, int16 */
 };
 
 static struct bt_data ad[] = {
@@ -40,15 +37,13 @@ int main(void)
 {
     int err;
 
-    /* Inicijalizacija senzora */
     const struct device *dev = DEVICE_DT_GET_ANY(bosch_bme280);
     if (!device_is_ready(dev)) {
-        printk("Senzor nije dostupan\n");
+        printk("Sensor not available\n");
         return -1;
     }
-    printk("Senzor OK\n");
+    printk("Sensor OK\n");
 
-    /* Inicijalizacija BLE */
     err = bt_enable(NULL);
     if (err) {
         printk("BLE init failed (err %d)\n", err);

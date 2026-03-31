@@ -125,11 +125,10 @@ static void parse_manufacturer_data(uint8_t *data, uint8_t len)
 {
     if (len < 4) return;
     
-    /* Preskoci company ID (2 bajta), uzmi temperaturu */
     int16_t temp_raw = (int16_t)((data[2] << 8) | data[3]);
     float temp = temp_raw / 100.0f;
     
-    ESP_LOGI(TAG, "Temperatura: %.2f C", temp);
+    ESP_LOGI(TAG, "Temperature: %.2f C", temp);
 
     if (sending_enabled)
         mqtt_publish_temp(temp);
@@ -143,7 +142,6 @@ static void gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param)
     uint8_t *adv_data = param->scan_rst.ble_adv;
     uint8_t adv_len = param->scan_rst.adv_data_len;
 
-    /* Provjeri ime uredjaja */
     uint8_t name_len = 0;
     uint8_t *name = esp_ble_resolve_adv_data(adv_data, 
                                               ESP_BLE_AD_TYPE_NAME_CMPL, 
@@ -151,7 +149,6 @@ static void gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param)
     if (!name || name_len == 0) return;
     if (strncmp((char *)name, "nRFSensor", name_len) != 0) return;
 
-    /* Nadjen nRFSensor - parsiraj manufacturer data */
     uint8_t mfr_len = 0;
     uint8_t *mfr = esp_ble_resolve_adv_data(adv_data,
                                              ESP_BLE_AD_MANUFACTURER_SPECIFIC_TYPE,
@@ -192,7 +189,7 @@ void app_main(void)
     };
 
     ESP_ERROR_CHECK(esp_ble_gap_set_scan_params(&scan_params));
-    ESP_ERROR_CHECK(esp_ble_gap_start_scanning(0)); /* 0 = kontinualno */
+    ESP_ERROR_CHECK(esp_ble_gap_start_scanning(0)); /* 0 = cont. */
 
-    ESP_LOGI(TAG, "BLE scan pokrenut, cekam nRFSensor...");
+    ESP_LOGI(TAG, "BLE scanning, waiting nRFSensor...");
 }
