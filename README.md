@@ -21,7 +21,6 @@ For this purpose, I used ESP32. This powerful chip fetches the temperature readi
 I used Linux Virtual Machine and Docker to setup Mosquitto (MQTT broker), InfluxDB (database), Telegraf (MQTT subscriber) and Grafana (visualisation). Docker Compose gives elegance and encapsulation.
 
 ## Challenges
-- Memory alignment of nRF image wasn't good, because I used cheap Aliexpress clone. I had to reverse-engineer proper one, which I dug on GitHub.
+- Handling memory layout issues on low-cost nRF52840 board
 - I2C readings weren't working when jumper wire was hanging on RST pin of nRF chip. Took me couple of hours to figure out.
-- Setup of VSCode extensions for nRF and ESP32.
-- MQTT support for ESP32 
+- Setting up ESP-IDF and Zephyr development environments in VSCode
