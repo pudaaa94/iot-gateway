@@ -24,3 +24,6 @@ I used Linux Virtual Machine and Docker Compose to setup the cloud stack, includ
 - Handling memory layout issues on low-cost nRF52840 board
 - I2C readings weren't working when jumper wire was hanging on RST pin of nRF chip. Took me couple of hours to figure out.
 - Setting up ESP-IDF and Zephyr development environments in VSCode
+
+## On duty
+![Measurement](assets/grafana.jpg)
