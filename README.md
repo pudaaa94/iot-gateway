@@ -4,7 +4,7 @@ This is an implementation of IoT temperature monitoring system that connects mul
 
 # ARCHITECTURE
 
-[BME280] --I2C--> [nRF52840] --BLE--> [ESP32] --MQTT--> [Mosquitto] -> [Telegraf] -> [InfluxDB] -> [Grafana]
+![Architecture diagram](assets/architecture.jpg)
 
 # COMPONENTS
 
